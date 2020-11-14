@@ -18,5 +18,5 @@ script:
   - make
 
 after_success:
-  - cd ${TRAVIS_BUILD_DIR}
+  - cd ${TRAVIS_BUILD_DIR}/build
   - ./just-do-it
