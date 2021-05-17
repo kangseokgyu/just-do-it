@@ -7,6 +7,7 @@ FetchContent_Declare(gtest
 FetchContent_MakeAvailable(gtest)
 
 add_executable(unit_test
+  mac_addr_test.cpp
 )
 
 target_include_directories(unit_test

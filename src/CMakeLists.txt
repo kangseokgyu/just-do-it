@@ -19,8 +19,10 @@ add_library(jdi)
 target_sources(jdi
   PRIVATE
     event.cpp
+    mac_addr.cpp
   PUBLIC
     event.h
+    mac_addr.h
 )
 target_include_directories(jdi
   PRIVATE
@@ -32,6 +34,7 @@ target_include_directories(jdi
 add_executable(just-do-it
   main.cpp
   event.cpp
+  mac_addr.cpp
 )
 target_include_directories(just-do-it
   PRIVATE
