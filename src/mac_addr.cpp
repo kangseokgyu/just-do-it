@@ -7,6 +7,7 @@
 
 #include <fmt/format.h>
 #include <range/v3/numeric/accumulate.hpp>
+#include <range/v3/view/filter.hpp>
 #include <range/v3/view/remove_if.hpp>
 
 MacAddr::MacAddr() {}
@@ -32,13 +33,12 @@ bool MacAddr::isMacFormat(const std::vector<uint8_t> &m) {
 
 bool MacAddr::isMacFormat(const std::string &m) {
   if (m.size() == MacAddr::STRING_LENGTH) {
-    auto ret = m | ranges::views::remove_if(
-                       [](char c) { return c == ':' || c == '-'; });
-    for (auto itr = ret.begin(); itr != ret.end(); ++itr) {
-      if (!std::isxdigit(static_cast<int>(*itr)))
-        return false;
-    }
-    return true;
+    auto ret =
+        m |
+        ranges::views::remove_if([](char c) { return c == ':' || c == '-'; }) |
+        ranges::views::filter([](const char c) { return !isxdigit(c); });
+    if (ret.empty())
+      return true;
   }
   return false;
 }
