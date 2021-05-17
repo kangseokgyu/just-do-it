@@ -5,6 +5,12 @@ FetchContent_Declare(range
 )
 FetchContent_MakeAvailable(range)
 
+FetchContent_Declare(fmt
+  GIT_REPOSITORY https://github.com/fmtlib/fmt
+  GIT_TAG        7.1.3
+)
+FetchContent_MakeAvailable(fmt)
+
 add_compile_options(-std=c++17 -Wall -Wextra -Wshadow)
 
 find_package(Threads REQUIRED)
@@ -19,6 +25,7 @@ target_sources(jdi
 target_include_directories(jdi
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${fmt_SOURCE_DIR}/include
     ${range_SOURCE_DIR}/include
 )
 
@@ -31,4 +38,8 @@ target_include_directories(just-do-it
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${range_SOURCE_DIR}/include
 )
-target_link_libraries(just-do-it PRIVATE Threads::Threads)
+target_link_libraries(just-do-it
+  PRIVATE
+    Threads::Threads
+    fmt
+)
