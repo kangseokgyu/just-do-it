@@ -6,17 +6,15 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-7
+            - g++-9
       env:
-        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-        
+        - MATRIX_EVAL="CC=gcc-9 && CXX=g++-9"
+
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - mkdir build
-  - cd build
-  - cmake ..
-  - make
+  - cmake -S. -Bbuild
+  - cmake --build build
 
 after_success:
   - cd ${TRAVIS_BUILD_DIR}/build
-  - ./just-do-it
+  - ctest
