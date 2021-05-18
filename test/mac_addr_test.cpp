@@ -9,6 +9,11 @@ TEST(MacAddr, MacAddr) {
             MacAddr(std::vector<uint8_t>(6, 0))); // 00:00:00:00:00:00
   ASSERT_EQ(MacAddr(281474976710655),
             MacAddr(std::vector<uint8_t>(6, 255))); // ff:ff:ff:ff:ff:ff
+
+  ASSERT_EQ(MacAddr(0),
+            MacAddr(std::string("00:00:00:00:00:00"))); // 00:00:00:00:00:00
+  ASSERT_EQ(MacAddr(281474976710655),
+            MacAddr(std::string("ff-ff-ff-ff-ff-ff"))); // ff:ff:ff:ff:ff:ff
 }
 
 TEST(MacAddr, isMacFormatString) {
@@ -25,4 +30,13 @@ TEST(MacAddr, isMacFormatString) {
   ASSERT_FALSE(MacAddr::isMacFormat(std::string("ff=ff=ff=ff=ff=ff")));
   ASSERT_FALSE(MacAddr::isMacFormat(std::string("tt-tt-tt-tt-tt-tt")));
   ASSERT_FALSE(MacAddr::isMacFormat(std::string("aa-aa-aa-aa-aa-tt")));
+}
+
+TEST(MacAddr, isMacFormatVector) {
+  ASSERT_TRUE(MacAddr::isMacFormat(std::vector<uint8_t>(6, 0)));
+  ASSERT_TRUE(MacAddr::isMacFormat(std::vector<uint8_t>(6, 255)));
+
+  ASSERT_FALSE(MacAddr::isMacFormat(std::vector<uint8_t>(0)));
+  ASSERT_FALSE(MacAddr::isMacFormat(std::vector<uint8_t>(5)));
+  ASSERT_FALSE(MacAddr::isMacFormat(std::vector<uint8_t>(200)));
 }
