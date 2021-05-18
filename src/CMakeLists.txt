@@ -20,9 +20,9 @@ target_sources(jdi
   PRIVATE
     event.cpp
     mac_addr.cpp
-  PUBLIC
-    event.h
-    mac_addr.h
+  # PUBLIC
+  #   event.h
+  #   mac_addr.h
 )
 target_include_directories(jdi
   PRIVATE
