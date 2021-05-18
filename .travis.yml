@@ -12,8 +12,7 @@ matrix:
 
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - mkdir build
-  - cmake -S . -B build
+  - cmake -S ${TRAVIS_BUILD_DIR} -B build
   - cmake --build build
 
 after_success:
