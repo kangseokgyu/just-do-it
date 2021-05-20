@@ -3,6 +3,7 @@
 #include <iostream>
 #include <list>
 #include <ostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -25,13 +26,23 @@ auto is_delimeter = [](char c) {
 
 MacAddr::MacAddr() {}
 
-MacAddr::MacAddr(const uint64_t &m) { m_ = m; }
+MacAddr::MacAddr(const uint64_t &m) {
+  if (m > BROADCAST_MAC)
+    throw std::runtime_error(
+        fmt::format("MacAddress -- The MAC address is too big. ({:012x})", m));
+  m_ = m;
+}
 
 MacAddr::MacAddr(const std::vector<uint8_t> m) {
   if (isMacFormat(m)) {
     m_ = ranges::accumulate(
         m, (uint64_t)0,
         [](const uint64_t &mac, const uint8_t &b) { return mac << 8 | b; });
+  } else {
+    std::stringstream ss;
+    ss << ranges::views::all(m);
+    throw std::runtime_error(
+        fmt::format("MacAddress -- Wrong Format. ({})", ss.str()));
   }
 }
 

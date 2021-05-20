@@ -26,6 +26,7 @@ public:
 
   constexpr static size_t LENGTH = 6;         // {0x0, 0x0, 0x0, 0x0, 0x0, 0x0}
   constexpr static size_t STRING_LENGTH = 17; // 00:00:00:00:00:00
+  constexpr static uint64_t BROADCAST_MAC = 0xff'ff'ff'ff'ff'ff;
 };
 
 #endif /* _JUST_DO_IT_MAC_ADDR_H_ */
