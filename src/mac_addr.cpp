@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 
+#include <fmt/format.h>
 #include <range/v3/core.hpp>
 #include <range/v3/numeric/accumulate.hpp>
 #include <range/v3/view/filter.hpp>
@@ -42,6 +43,22 @@ MacAddr::MacAddr(const std::string &m) {
   }
 }
 
+uint64_t MacAddr::get() const { return m_; }
+
+std::string MacAddr::getString() const {
+  std::string ret = "";
+  std::string tmp = "";
+
+  tmp = fmt::format("{:02x}", m_ % 256);
+  ret.insert(ret.begin(), tmp.begin(), tmp.end());
+  for (size_t i = 1; i < MacAddr::LENGTH; i++) {
+    tmp = fmt::format("{:02x}:", (m_ >> i * 8) % 256);
+    ret.insert(ret.begin(), tmp.begin(), tmp.end());
+  }
+
+  return ret;
+}
+
 bool MacAddr::isMacFormat(const std::vector<uint8_t> &m) {
   return m.size() == MacAddr::LENGTH;
 }
@@ -61,6 +78,6 @@ bool MacAddr::operator==(const MacAddr &a) const { return this->m_ == a.m_; }
 bool MacAddr::operator!=(const MacAddr &a) const { return !((*this) == a); }
 
 std::ostream &operator<<(std::ostream &os, const MacAddr &m) {
-  os << m.m_;
+  os << m.getString();
   return os;
 }

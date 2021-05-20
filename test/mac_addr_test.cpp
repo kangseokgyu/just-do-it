@@ -7,13 +7,19 @@
 TEST(MacAddr, MacAddr) {
   ASSERT_EQ(MacAddr(0),
             MacAddr(std::vector<uint8_t>(6, 0))); // 00:00:00:00:00:00
-  ASSERT_EQ(MacAddr(281474976710655),
+  ASSERT_EQ(MacAddr(0xff'ff'ff'ff'ff'ff),
             MacAddr(std::vector<uint8_t>(6, 255))); // ff:ff:ff:ff:ff:ff
 
   ASSERT_EQ(MacAddr(0),
             MacAddr(std::string("00:00:00:00:00:00"))); // 00:00:00:00:00:00
-  ASSERT_EQ(MacAddr(281474976710655),
+  ASSERT_EQ(MacAddr(0xff'ff'ff'ff'ff'ff),
             MacAddr(std::string("ff-ff-ff-ff-ff-ff"))); // ff:ff:ff:ff:ff:ff
+}
+
+TEST(MacAddr, getter) {
+  ASSERT_EQ(MacAddr(0).getString(), "00:00:00:00:00:00");
+  ASSERT_EQ(MacAddr(0xff'ff'ff'ff'ff'ff).getString(), "ff:ff:ff:ff:ff:ff");
+  ASSERT_EQ(MacAddr(0x11'22'33'44'55'66).getString(), "11:22:33:44:55:66");
 }
 
 TEST(MacAddr, isMacFormatString) {

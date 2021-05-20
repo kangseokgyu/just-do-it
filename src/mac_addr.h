@@ -14,6 +14,8 @@ public:
   MacAddr(const uint64_t &m);
   MacAddr(const std::vector<uint8_t> m);
   MacAddr(const std::string &m);
+  uint64_t get() const;
+  std::string getString() const;
 
   static bool isMacFormat(const std::vector<uint8_t> &m);
   static bool isMacFormat(const std::string &m);

@@ -20,6 +20,7 @@ target_link_libraries(unit_test
   PRIVATE
     jdi
     gtest_main
+    fmt
 )
 
 include(GoogleTest)
