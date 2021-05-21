@@ -1,6 +1,5 @@
 #include "mac_addr.h"
 
-#include <iostream>
 #include <list>
 #include <ostream>
 #include <sstream>
@@ -51,6 +50,9 @@ MacAddr::MacAddr(const std::string &m) {
     auto ret =
         m | ranges::views::remove_if(is_delimeter) | ranges::to<std::vector>();
     m_ = std::stoul(ret.data(), nullptr, 16);
+  } else {
+    throw std::runtime_error(
+        fmt::format("MacAddress -- Wrong Format. ({})", m));
   }
 }
 

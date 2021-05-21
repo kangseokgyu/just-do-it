@@ -14,6 +14,14 @@ TEST(MacAddr, MacAddr) {
             MacAddr(std::string("00:00:00:00:00:00"))); // 00:00:00:00:00:00
   ASSERT_EQ(MacAddr(0xff'ff'ff'ff'ff'ff),
             MacAddr(std::string("ff-ff-ff-ff-ff-ff"))); // ff:ff:ff:ff:ff:ff
+  ASSERT_ANY_THROW(MacAddr(std::string("")));
+  ASSERT_ANY_THROW(MacAddr(std::string("00000000000")));
+  ASSERT_ANY_THROW(MacAddr(std::string("0000000000000")));
+  ASSERT_ANY_THROW(MacAddr(std::string("000000000000")));
+  ASSERT_ANY_THROW(MacAddr(std::string("ffffffffffff")));
+  ASSERT_ANY_THROW(MacAddr(std::string("ff=ff=ff=ff=ff=ff")));
+  ASSERT_ANY_THROW(MacAddr(std::string("tt-tt-tt-tt-tt-tt")));
+  ASSERT_ANY_THROW(MacAddr(std::string("aa-aa-aa-aa-aa-tt")));
 }
 
 TEST(MacAddr, getter) {
