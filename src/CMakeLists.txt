@@ -11,6 +11,12 @@ FetchContent_Declare(fmt
 )
 FetchContent_MakeAvailable(fmt)
 
+FetchContent_Declare(pcap
+  GIT_REPOSITORY https://github.com/the-tcpdump-group/libpcap.git
+  GIT_TAG        libpcap-1.10
+)
+FetchContent_MakeAvailable(pcap)
+
 add_compile_options(-std=c++17 -Wall -Wextra -Wshadow)
 
 find_package(Threads REQUIRED)
@@ -45,4 +51,5 @@ target_link_libraries(just-do-it
   PRIVATE
     Threads::Threads
     fmt
+    pcap
 )
