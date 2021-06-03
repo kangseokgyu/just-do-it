@@ -15,7 +15,12 @@ FetchContent_Declare(pcap
   GIT_REPOSITORY https://github.com/the-tcpdump-group/libpcap.git
   GIT_TAG        libpcap-1.10
 )
-FetchContent_MakeAvailable(pcap)
+
+FetchContent_Declare(zlog
+  GIT_REPOSITORY https://github.com/lisongmin/zlog.git
+  GIT_TAG        master
+)
+FetchContent_MakeAvailable(range fmt pcap zlog)
 
 add_compile_options(-std=c++17 -Wall -Wextra -Wshadow)
 
@@ -35,6 +40,7 @@ target_include_directories(jdi
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${fmt_SOURCE_DIR}/include
     ${range_SOURCE_DIR}/include
+    ${zlog_SOURCE_DIR}/src
 )
 
 add_executable(just-do-it
@@ -46,10 +52,12 @@ target_include_directories(just-do-it
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${range_SOURCE_DIR}/include
+    ${zlog_SOURCE_DIR}/src
 )
 target_link_libraries(just-do-it
   PRIVATE
     Threads::Threads
     fmt
     pcap
+    zlog
 )
