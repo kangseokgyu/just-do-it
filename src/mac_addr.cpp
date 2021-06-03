@@ -23,17 +23,17 @@ auto is_delimeter = [](char c) {
   return false;
 };
 
-MacAddr::MacAddr() {}
+mac_addr::mac_addr() {}
 
-MacAddr::MacAddr(const uint64_t &m) {
+mac_addr::mac_addr(const uint64_t &m) {
   if (m > BROADCAST_MAC)
     throw std::runtime_error(
         fmt::format("MacAddress -- The MAC address is too big. ({:012x})", m));
   m_ = m;
 }
 
-MacAddr::MacAddr(const std::vector<uint8_t> m) {
-  if (isMacFormat(m)) {
+mac_addr::mac_addr(const std::vector<uint8_t> m) {
+  if (is_mac_format(m)) {
     m_ = ranges::accumulate(
         m, (uint64_t)0,
         [](const uint64_t &mac, const uint8_t &b) { return mac << 8 | b; });
@@ -45,8 +45,8 @@ MacAddr::MacAddr(const std::vector<uint8_t> m) {
   }
 }
 
-MacAddr::MacAddr(const std::string &m) {
-  if (isMacFormat(m)) {
+mac_addr::mac_addr(const std::string &m) {
+  if (is_mac_format(m)) {
     auto ret =
         m | ranges::views::remove_if(is_delimeter) | ranges::to<std::vector>();
     m_ = std::stoul(ret.data(), nullptr, 16);
@@ -56,15 +56,15 @@ MacAddr::MacAddr(const std::string &m) {
   }
 }
 
-uint64_t MacAddr::get() const { return m_; }
+uint64_t mac_addr::get() const { return m_; }
 
-std::string MacAddr::getString() const {
+std::string mac_addr::getString() const {
   std::string ret = "";
   std::string tmp = "";
 
   tmp = fmt::format("{:02x}", m_ % 256);
   ret.insert(ret.begin(), tmp.begin(), tmp.end());
-  for (size_t i = 1; i < MacAddr::LENGTH; i++) {
+  for (size_t i = 1; i < mac_addr::LENGTH; i++) {
     tmp = fmt::format("{:02x}:", (m_ >> i * 8) % 256);
     ret.insert(ret.begin(), tmp.begin(), tmp.end());
   }
@@ -72,12 +72,12 @@ std::string MacAddr::getString() const {
   return ret;
 }
 
-bool MacAddr::isMacFormat(const std::vector<uint8_t> &m) {
-  return m.size() == MacAddr::LENGTH;
+bool mac_addr::is_mac_format(const std::vector<uint8_t> &m) {
+  return m.size() == mac_addr::LENGTH;
 }
 
-bool MacAddr::isMacFormat(const std::string &m) {
-  if (m.size() == MacAddr::STRING_LENGTH) {
+bool mac_addr::is_mac_format(const std::string &m) {
+  if (m.size() == mac_addr::STRING_LENGTH) {
     auto ret = m | ranges::views::remove_if(is_delimeter) |
                ranges::views::filter([](const char c) { return !isxdigit(c); });
     if (ret.empty())
@@ -86,11 +86,11 @@ bool MacAddr::isMacFormat(const std::string &m) {
   return false;
 }
 
-bool MacAddr::operator==(const MacAddr &a) const { return this->m_ == a.m_; }
+bool mac_addr::operator==(const mac_addr &a) const { return this->m_ == a.m_; }
 
-bool MacAddr::operator!=(const MacAddr &a) const { return !((*this) == a); }
+bool mac_addr::operator!=(const mac_addr &a) const { return !((*this) == a); }
 
-std::ostream &operator<<(std::ostream &os, const MacAddr &m) {
+std::ostream &operator<<(std::ostream &os, const mac_addr &m) {
   os << m.getString();
   return os;
 }
