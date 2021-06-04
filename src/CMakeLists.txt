@@ -3,13 +3,11 @@ FetchContent_Declare(range
   GIT_REPOSITORY https://github.com/ericniebler/range-v3
   GIT_TAG        0.11.0
 )
-FetchContent_MakeAvailable(range)
 
 FetchContent_Declare(fmt
   GIT_REPOSITORY https://github.com/fmtlib/fmt
   GIT_TAG        7.1.3
 )
-FetchContent_MakeAvailable(fmt)
 
 FetchContent_Declare(pcap
   GIT_REPOSITORY https://github.com/the-tcpdump-group/libpcap.git
