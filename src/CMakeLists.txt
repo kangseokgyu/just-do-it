@@ -45,6 +45,7 @@ add_executable(just-do-it
   main.cpp
   event.cpp
   mac_addr.cpp
+  sniffer.cpp
 )
 target_include_directories(just-do-it
   PRIVATE
