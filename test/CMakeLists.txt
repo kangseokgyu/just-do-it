@@ -13,7 +13,8 @@ add_executable(unit_test
 target_include_directories(unit_test
   PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}
-    ${CMAKE_CURRENT_LIST_DIR}/../src
+    ${jdi_SOURCE_DIR}
+    ${range_SOURCE_DIR}/include
 )
 
 target_link_libraries(unit_test

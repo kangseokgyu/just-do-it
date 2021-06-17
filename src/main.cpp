@@ -55,5 +55,22 @@ int main(int argc, char **argv) {
     t.join();
   }
 
+  for (auto &s : sniffers) {
+    int i = 0;
+    while (true) {
+      auto op = s.fetch_packet();
+      if (op) {
+        fmt::print("-- {}\n", i);
+        for (auto p : **op) {
+          fmt::print("{:02x} ", p);
+        }
+        i++;
+        fmt::print("\n");
+      } else {
+        break;
+      }
+    }
+  }
+
   return 0;
 }
