@@ -12,7 +12,6 @@
 #include "fmt/format.h"
 #include "range/v3/all.hpp"
 
-#include "dot11_parser/dot11_beacon.h"
 #include "mac_addr.h"
 #include "sniffer.h"
 
