@@ -21,6 +21,7 @@ target_include_directories(jdi
     ${fmt_SOURCE_DIR}/include
     ${range_SOURCE_DIR}/include
     ${zlog_SOURCE_DIR}/src
+    ${pcap_SOURCE_DIR}
 )
 target_link_libraries(jdi
   PRIVATE
