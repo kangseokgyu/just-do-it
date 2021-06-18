@@ -34,8 +34,10 @@ add_executable(just-do-it
 target_include_directories(just-do-it
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${fmt_SOURCE_DIR}/include
     ${range_SOURCE_DIR}/include
     ${zlog_SOURCE_DIR}/src
+    ${pcap_SOURCE_DIR}
 )
 target_link_libraries(just-do-it
   PRIVATE
